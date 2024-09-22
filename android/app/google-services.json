@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "315388194587",
+    "project_id": "fitgenie-528f7",
+    "storage_bucket": "fitgenie-528f7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:315388194587:android:e45113e6006cd3390e2dbe",
+        "android_client_info": {
+          "package_name": "com.codeforany.workout_fitness"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwb8TnSrcWpA7SU4K4uuY5LGigp-DNRLE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
