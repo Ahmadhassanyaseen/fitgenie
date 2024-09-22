@@ -111,7 +111,7 @@ class _WorkoutDetailViewState extends State<WorkoutDetailView> {
                        color: TColor.primary,
                      ),
                      onRatingUpdate: (rating) {
-                       print(rating);
+                      //  print(rating);
                      },
                   ),
                   ),

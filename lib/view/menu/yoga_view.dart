@@ -103,7 +103,7 @@ class _YogaViewState extends State<YogaView> {
                         color: TColor.primary,
                       ),
                       onRatingUpdate: (rating) {
-                        print(rating);
+                        // print(rating);
                       },
                     ),
                   ),

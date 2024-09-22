@@ -1,8 +1,9 @@
+// ignore_for_file: unused_element
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:workout_fitness/view/login/Login.dart';
+import 'package:workout_fitness/view/login/login.dart';
 import 'package:workout_fitness/view/login/signupgetx.dart';
-import 'package:workout_fitness/view/login/step1_view.dart';
 
 class Sign extends StatefulWidget {
   const Sign({super.key});

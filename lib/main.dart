@@ -11,7 +11,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   var email = prefs.getString("email");
-  print(email);
+  // print(email);
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
     // options: const FirebaseOptions(

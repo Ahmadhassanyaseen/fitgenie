@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:workout_fitness/common_widget/commondialog.dart';
 import 'package:workout_fitness/view/home/home_view.dart';
+import 'package:workout_fitness/view/menu/menu_view.dart';
 
 class Loginlogic extends GetxController {
   String? userId;
@@ -19,25 +20,20 @@ class Loginlogic extends GetxController {
           email: loginemailcontroller.text.trim(),
           password: loginpasswordController.text.trim(),
         );
-        print("User signed in: ${userCredential.user!.uid}");
         userId = userCredential.user!.uid;
         CommonDialog.hideLoading();
-        print("Navigating to HomeScreen");
-        Get.offAll(() => const HomeView());
+
+        // Navigate to HomeView after successful login
+        Get.offAll(() => const MenuView());
+        // Get.offAll(() => const HomeView());
       }
     } on FirebaseAuthException catch (e) {
       CommonDialog.hideLoading();
-      print('Firebase Auth Exception: $e');
       CommonDialog.showErrorDialog(description: e.code);
-      if (e.code =='invalid') {
-        CommonDialog.showErrorDialog(description: e.code);
-        print(e.code);
-      }
     }
   }
 
   void onlogin() {
-    print("onlogin method called");
     if (loginkey.currentState!.validate()) {
       signUserin();
     }

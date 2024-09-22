@@ -28,29 +28,29 @@ class _RunningLengthViewState extends State<RunningLengthView> {
   }
 
   void onStepCount(StepCount event) {
-    print(event);
+    // print(event);
     setState(() {
       _steps = event.steps.toString();
     });
   }
 
   void onPedestrianStatusChanged(PedestrianStatus event) {
-    print(event);
+    // print(event);
     setState(() {
       _status = event.status;
     });
   }
 
   void onPedestrianStatusError(error) {
-    print('onPedestrianStatusError: $error');
+    // print('onPedestrianStatusError: $error');
     setState(() {
       _status = 'Pedestrian Status not available';
     });
-    print(_status);
+    // print(_status);
   }
 
   void onStepCountError(error) {
-    print('onStepCountError: $error');
+    // print('onStepCountError: $error');
     setState(() {
       _steps = 'Step Count not available';
     });
@@ -75,7 +75,7 @@ class _RunningLengthViewState extends State<RunningLengthView> {
       if (!mounted) return;
     } else {
       // Handle the case where the user denies permission
-      print("Permission denied");
+      // print("Permission denied");
     }
   }
 

@@ -38,7 +38,6 @@ class _OnBoardingViewState extends State<OnBoardingView> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     controller?.addListener(() {
       selectPage = controller?.page?.round() ?? 0;
@@ -51,9 +50,8 @@ class _OnBoardingViewState extends State<OnBoardingView> {
 
   @override
   Widget build(BuildContext context) {
-    var media = MediaQuery.sizeOf(context);
+    var media = MediaQuery.of(context).size;
     return Scaffold(
-    
       backgroundColor: TColor.primary,
       body: Stack(children: [
         Image.asset(

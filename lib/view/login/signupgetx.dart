@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:workout_fitness/common_widget/commondialog.dart';
 import 'package:workout_fitness/view/home/home_view.dart';
-import 'package:workout_fitness/view/login/login.dart';
 
 class SignupLogic extends GetxController {
   GlobalKey<FormState> signupkey = GlobalKey<FormState>();
@@ -26,7 +25,7 @@ class SignupLogic extends GetxController {
           password: signuppasswordController.text.toString(),
         );
         // createUserDocuments(userCredential);
-        print(userCredential);
+        // print(userCredential);
 
         try {
           var response = await FirebaseFirestore.instance
@@ -46,7 +45,7 @@ class SignupLogic extends GetxController {
           CommonDialog.hideLoading();
           CommonDialog.showErrorDialog(
               description: "Account Created successfully");
-          print("Error Saving Data at firestore $exception");
+          // print("Error Saving Data at firestore $exception");
         }
       }
     } on FirebaseAuthException catch (e) {
@@ -79,7 +78,7 @@ class SignupLogic extends GetxController {
         return null;
       }
     } catch (e) {
-      print('Error fetching user data: $e');
+      // print('Error fetching user data: $e');
       return null;
     }
   }

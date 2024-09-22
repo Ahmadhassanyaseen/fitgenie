@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:intl/intl.dart' show DateFormat;
@@ -18,26 +20,57 @@ class ScheduleView extends StatefulWidget {
 class _ScheduleViewState extends State<ScheduleView> {
   DateTime nowTime = DateTime.now();
   DateTime targetDate = DateTime.now();
-  List dateArr = [
+  List<DateTime> dateArr = [
     DateTime(2023, 7, 2),
     DateTime(2023, 7, 14),
   ];
-  List notArr = [
-    {
-      "day": "2",
-      "detail":
-          " You exercise 40 minutes a day and five days a week at a certain time, you practice on a regular schedule. Changing the schedule will result in diminished results, resulting in fatigue."
-    },
-    {
-      "day": "14",
-      "detail":
-          "Tips for weight loss work towards functional exercises, proven strength and balance, and reduced risk of injury when muscle groups are active at the same time."
-    },
-  ];
+  
+  // Map to store notes for specific days
+  Map<DateTime, String> notes = {
+    DateTime(2023, 7, 2): " You exercise 40 minutes a day and five days a week at a certain time, you practice on a regular schedule. Changing the schedule will result in diminished results.",
+    DateTime(2023, 7, 14): "Tips for weight loss work towards functional exercises, proven strength and balance, and reduced risk of injury when muscle groups are active at the same time."
+  };
+
+  // Function to add a note to a specific date
+  void _addNoteForDate(DateTime date) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        TextEditingController noteController = TextEditingController();
+
+        return AlertDialog(
+          title: Text("Add a note for ${DateFormat.yMMMd().format(date)}"),
+          content: TextField(
+            controller: noteController,
+            decoration: InputDecoration(
+              hintText: "Enter your note",
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  notes[date] = noteController.text;
+                });
+                Navigator.of(context).pop();
+              },
+              child: Text("Add"),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    var media = MediaQuery.sizeOf(context);
+    var media = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: TColor.primary,
@@ -130,7 +163,7 @@ class _ScheduleViewState extends State<ScheduleView> {
                     selectedDayButtonColor: TColor.primary,
                     selectedDayBorderColor: TColor.primary,
                     onDayPressed: (DateTime date, List events) {
-                      // this.setState(() => nowTime = date);
+                      _addNoteForDate(date);
                     },
                     onCalendarChanged: (date) {
                       setState(() {
@@ -156,7 +189,6 @@ class _ScheduleViewState extends State<ScheduleView> {
                     thisMonthDayBorderColor: Colors.transparent,
                     showHeader: false,
                     customDayBuilder: (
-                      /// you can provide your own build function to make custom day containers
                       bool isSelectable,
                       int index,
                       bool isSelectedDay,
@@ -168,11 +200,13 @@ class _ScheduleViewState extends State<ScheduleView> {
                       DateTime day,
                     ) {
                       var selectObj = dateArr.firstWhere(
-                          (eDate) =>
-                              day.day == eDate.day &&
-                              day.month == eDate.month &&
-                              day.year == eDate.year,
-                          orElse: () => null);
+  (eDate) =>
+      day.day == eDate.day &&
+      day.month == eDate.month &&
+      day.year == eDate.year,
+  orElse: () => DateTime(1900, 1, 1), // Provide a default DateTime
+);
+
 
                       if (selectObj != null) {
                         return Container(
@@ -193,15 +227,6 @@ class _ScheduleViewState extends State<ScheduleView> {
                         );
                       }
                       return null;
-                      // dateArr
-
-                      // if (day.day == 15) {
-                      //   return Center(
-                      //     child: Icon(Icons.local_airport),
-                      //   );
-                      // } else {
-                      //   return null;
-                      // }
                     },
                     weekFormat: false,
 
@@ -209,8 +234,6 @@ class _ScheduleViewState extends State<ScheduleView> {
                     selectedDateTime: nowTime,
                     targetDateTime: targetDate,
                     daysHaveCircularBorder: true,
-
-                    /// null for not rendering any border, true for circular border, false for rectangular border
                   ),
                   const Padding(
                     padding: EdgeInsets.only(top: 33),
@@ -225,7 +248,7 @@ class _ScheduleViewState extends State<ScheduleView> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
               child: Text(
-                "Note",
+                "Notes",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     color: TColor.secondaryText,
@@ -237,9 +260,10 @@ class _ScheduleViewState extends State<ScheduleView> {
                 physics: const NeverScrollableScrollPhysics(),
                 padding: const EdgeInsets.symmetric(horizontal: 25),
                 shrinkWrap: true,
-                itemCount: notArr.length,
+                itemCount: notes.length,
                 itemBuilder: (context, index) {
-                  var iObj = notArr[index] as Map? ?? {};
+                  DateTime noteDate = notes.keys.elementAt(index);
+                  String noteDetail = notes[noteDate] ?? "";
 
                   return Container(
                     padding: const EdgeInsets.only(bottom: 15, left: 8),
@@ -254,7 +278,7 @@ class _ScheduleViewState extends State<ScheduleView> {
                               borderRadius: BorderRadius.circular(20)),
                           alignment: Alignment.center,
                           child: Text(
-                            iObj["day"],
+                            noteDate.day.toString(),
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: TColor.white,
@@ -267,7 +291,7 @@ class _ScheduleViewState extends State<ScheduleView> {
                         ),
                         Expanded(
                             child: Text(
-                          iObj["detail"],
+                          noteDetail,
                           style: TextStyle(
                               color: TColor.secondaryText, fontSize: 16),
                         ))

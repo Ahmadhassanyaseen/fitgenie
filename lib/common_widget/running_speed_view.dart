@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_unnecessary_containers
+
 import 'package:flutter/material.dart';
 import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
@@ -45,11 +47,11 @@ class _RunningSpeedViewState extends State<RunningSpeedView> {
               GaugeRange(startValue: 0, endValue: 50, color:Colors.green),
               GaugeRange(startValue: 50,endValue: 100,color: Colors.orange),
               GaugeRange(startValue: 100,endValue: 150,color: Colors.red)],
-            pointers: <GaugePointer>[
+            pointers: const <GaugePointer>[
               NeedlePointer(value: 90)],
             annotations: <GaugeAnnotation>[
               GaugeAnnotation(widget: Container(child: 
-                 Text('90.0',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold))),
+                 const Text('90.0',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold))),
                  angle: 90, positionFactor: 0.5
               )]
           )])
@@ -59,7 +61,7 @@ class _RunningSpeedViewState extends State<RunningSpeedView> {
               ],
             ),
           ),
-          Container(
+          SizedBox(
             height: 80,
             child: Column(
               children: [
